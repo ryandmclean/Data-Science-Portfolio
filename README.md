@@ -1,2 +1,5 @@
 # Machine-Learning-in-Python
-This is a sample of the machine learning projects that I have worked on using Python
+Python uses Jupyter Notebooks, pandas, scikit-learn, and matplotlib.
+
+# SAS JMP
+JMP is a visual toolset that emphasizes drop-down menus and thus not all analyses can be depicted through scripts. I have shared a few scripts to show a sampling of the algorithms I have used in JMP. 
