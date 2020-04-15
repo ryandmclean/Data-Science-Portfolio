@@ -1,0 +1,34 @@
+Title: 
+  Stata2Mplus conversion for ppm-3-step.dta
+ 
+Data:
+  File is ppm-3-step.dat ;
+Variable:
+  Names are 
+     id FP1_risk FP1_phys FP1_pos FP2_risk FP2_phys FP2_pos QP1_Open QP1_Control
+     QP2_Open QP2_Control;
+  IDVARIABLE = id;
+  USEVARIABLES ARE 
+    FP1_risk FP1_phys FP1_pos FP2_risk FP2_phys FP2_pos 
+    QP1_Open QP1_Control QP2_Open QP2_Control;
+  CLASSES = C(3);
+  Missing are all (-9999) ; 
+Analysis: 
+  Type = mixture; 
+  Processors = 24;
+  estimator = bayes;
+  ALGORITHM = GIBBS (RW);
+  !thin = 10;
+  !BITERAT = 10000;
+MODEL:
+
+
+PLOT: TYPE = PLOT3;
+SERIES = FP1_risk(1) FP1_phys(2) FP1_pos(3) 
+         QP1_Open(4) QP1_Control(5)
+         FP2_risk(6) FP2_phys(7) FP2_pos(8) 
+         QP2_Open(9) QP2_Control(10);
+OUTPUT: TECH11 TECH14;
+!SAVEDATA:
+!FILE=C3MEMBERBAYESCOV.csv;
+!SAVE=CPROBABILITIES;
