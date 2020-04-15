@@ -1,0 +1,138 @@
+
+Partition(
+	Y( :yBankruptcy ),
+	X(
+		:R2,
+		:R4,
+		:R7,
+		:R8,
+		:R19,
+		:R20,
+		:R12,
+		:R9,
+		:R10,
+		:R11,
+		:R13,
+		:R15,
+		:R17,
+		:R23
+	),
+	Validation( :Valid80Sd22 ),
+	Show Split Prob( 1 ),
+	Show Split Count( 1 ),
+	Small Tree View( 1 ),
+	Split History( 1 ),
+	Show Fit Details( 1 ),
+	Informative Missing( 1 ),
+	ROC Curve( 1 ),
+	Initial Splits( :R9 >= 1.96, {:R15 >= 0.03}, {:R15 >= 0.03} ),
+	SendToReport(
+		Dispatch( {}, "Partition Report", FrameBox, {Frame Size( 480, 110 )} ),
+		Dispatch( {}, "", Picture Box( 2 ), {Set Summary Behavior( "Collapse" )} )
+	)
+);
+
+Partition(
+	Y( :yBankruptcy ),
+	X(
+		:R2,
+		:R4,
+		:R7,
+		:R8,
+		:R19,
+		:R20,
+		:R12,
+		:R9,
+		:R10,
+		:R11,
+		:R13,
+		:R15,
+		:R17,
+		:R23,
+		:R1,
+		:R3,
+		:R5,
+		:R6,
+		:R14,
+		:R16,
+		:R18,
+		:R21,
+		:R22,
+		:R24
+	),
+	Validation( :Valid80Sd0 ),
+	Show Split Prob( 1 ),
+	Show Split Count( 1 ),
+	Small Tree View( 1 ),
+	Split History( 1 ),
+	Show Fit Details( 1 ),
+	Informative Missing( 1 ),
+	ROC Curve( 1 ),
+	Initial Splits( :R9 >= 1.96, {:R14 >= 0.03}, {:R17 >= 0.06, {:R10 < 0.6}} ),
+	SendToReport(
+		Dispatch( {}, "Partition Report", FrameBox, {Frame Size( 480, 128 )} ),
+		Dispatch( {}, "", Picture Box( 2 ), {Set Summary Behavior( "Collapse" )} )
+	)
+);
+
+// MLR with city instead of zip
+Fit Model(
+	Validation( :Valid80Sd22 ),
+	Y( :price ),
+	Effects(
+		:bathrooms,
+		:bedrooms,
+		:city recode,
+		:cul_de_sac,
+		:daysOnMarket,
+		:denNum,
+		:diningRoomNum,
+		:latitude,
+		:laundryNum,
+		:longitude,
+		:lot,
+		:sqFeet,
+		:yrBuilt
+	),
+	Personality( "Standard Least Squares" ),
+	Emphasis( "Minimal Report" ),
+	Run(
+		:price << {Summary of Fit( 1 ), Analysis of Variance( 1 ),
+		Parameter Estimates( 1 ), Lack of Fit( 0 ), Scaled Estimates( 0 ),
+		Plot Actual by Predicted( 0 ), Plot Regression( 0 ),
+		Plot Residual by Predicted( 0 ), Plot Studentized Residuals( 0 ),
+		Plot Effect Leverage( 0 ), Plot Residual by Normal Quantiles( 0 ),
+		Box Cox Y Transformation( 0 )}
+	)
+);
+
+// Use zip instead of city to estimate means
+Fit Model(
+	Validation( :Valid80Sd22 ),
+	Y( :price ),
+	Effects(
+		:bathrooms,
+		:bedrooms,
+		:zip,
+		:cul_de_sac,
+		:daysOnMarket,
+		:denNum,
+		:diningRoomNum,
+		:latitude,
+		:laundryNum,
+		:longitude,
+		:lot,
+		:sqFeet,
+		:yrBuilt
+	),
+	Personality( "Standard Least Squares" ),
+	Emphasis( "Minimal Report" ),
+	Run(
+		:price << {Summary of Fit( 1 ), Analysis of Variance( 1 ),
+		Parameter Estimates( 1 ), Lack of Fit( 0 ), Scaled Estimates( 0 ),
+		Plot Actual by Predicted( 0 ), Plot Regression( 0 ),
+		Plot Residual by Predicted( 0 ), Plot Studentized Residuals( 0 ),
+		Plot Effect Leverage( 0 ), Plot Residual by Normal Quantiles( 0 ),
+		Box Cox Y Transformation( 0 )}
+	)
+);

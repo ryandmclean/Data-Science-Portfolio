@@ -1,0 +1,90 @@
+
+Multivariate(
+	Y(
+		:ByRiver,
+		:CrimeRate,
+		:DistToWork,
+		:HiwayAccess,
+		:IndustrialPerc,
+		:LargeLotsPerc,
+		:LowIncomePerc,
+		:NoxAirPerc,
+		:OldHomePerc,
+		:ProptyTaxRate,
+		:PupilsPerTeach,
+		:RoomsPerHome,
+		:yMedval
+	),
+	Estimation Method( "Row-wise" ),
+	Matrix Format( "Square" ),
+	Scatterplot Matrix(
+		Density Ellipses( 1 ),
+		Shaded Ellipses( 0 ),
+		Ellipse Color( 3 )
+	)
+);
+
+K Nearest Neighbors(
+	Validation( :Valid60Sd1 ),
+	Y( :yMedval ),
+	X(
+		:ByRiver,
+		:CrimeRate,
+		:HiwayAccess,
+		:IndustrialPerc,
+		:LargeLotsPerc,
+		:LowIncomePerc,
+		:NoxAirPerc,
+		:OldHomePerc,
+		:ProptyTaxRate,
+		:PupilsPerTeach,
+		:RoomsPerHome
+	),
+	K( 15 )
+);
+
+Fit Model(
+	Validation( :Valid60Sd1 ),
+	Y( :yMedval ),
+	Effects(
+		:ByRiver,
+		:CrimeRate,
+		:HiwayAccess,
+		:IndustrialPerc,
+		:LargeLotsPerc,
+		:LowIncomePerc,
+		:NoxAirPerc,
+		:OldHomePerc,
+		:ProptyTaxRate,
+		:PupilsPerTeach,
+		:RoomsPerHome
+	),
+	Personality( "Standard Least Squares" ),
+	Emphasis( "Effect Screening" ),
+	Run(
+		Profiler(
+			1,
+			Confidence Intervals( 1 ),
+			Arrange in Rows( 6 ),
+			Term Value(
+				ByRiver( 0.0692, Lock( 0 ), Show( 1 ) ),
+				CrimeRate( 3.613, Lock( 0 ), Show( 1 ) ),
+				HiwayAccess( 9.549, Lock( 0 ), Show( 1 ) ),
+				IndustrialPerc( 10.833, Lock( 0 ), Show( 1 ) ),
+				LargeLotsPerc( 11.36, Lock( 0 ), Show( 1 ) ),
+				LowIncomePerc( 12.58, Lock( 0 ), Show( 1 ) ),
+				NoxAirPerc( 0.55476, Lock( 0 ), Show( 1 ) ),
+				OldHomePerc( 68.575, Lock( 0 ), Show( 1 ) ),
+				ProptyTaxRate( 408.24, Lock( 0 ), Show( 1 ) ),
+				PupilsPerTeach( 18.4555, Lock( 0 ), Show( 1 ) ),
+				RoomsPerHome( 6.3169, Lock( 0 ), Show( 1 ) )
+			)
+		),
+		:yMedval << {Summary of Fit( 0 ), Analysis of Variance( 0 ),
+		Parameter Estimates( 1 ), Effect Details( 0 ), Lack of Fit( 0 ),
+		Sorted Estimates( 0 ), Plot Actual by Predicted( 1 ), Plot Regression( 0 ),
+		Plot Residual by Predicted( 1 ), Plot Studentized Residuals( 1 ),
+		Plot Effect Leverage( 0 ), Plot Residual by Normal Quantiles( 0 ),
+		Box Cox Y Transformation( 1 )}
+	)
+);

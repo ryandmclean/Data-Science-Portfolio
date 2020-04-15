@@ -1,0 +1,114 @@
+
+Bootstrap Forest(
+	Y( :Buyer ),
+	X(
+		:Age,
+		:CommuteDistance,
+		:CreditRating,
+		:EducationYrs,
+		:Gender,
+		:Height,
+		:HomeLocation,
+		:Income,
+		:JobCategory,
+		:MaritalStatus,
+		:NbrSpeedingCitations,
+		:NbrSportsCars,
+		:Region,
+		:Weight
+	),
+	Minimum Size Split( 1 ),
+	Validation Portion( 0.4 ),
+	Set Random Seed( 5 ),
+	Method( "Bootstrap Forest" ),
+	ROC Curve( 1 ),
+	Portion Bootstrap( 1 ),
+	Number Terms( 3 ),
+	Number Trees( 61 ),
+	Go
+);
+
+Bootstrap Forest(
+	Y( :Buyer ),
+	X(
+		:Age,
+		:CommuteDistance,
+		:CreditRating,
+		:EducationYrs,
+		:Gender,
+		:Height,
+		:HomeLocation,
+		:Income,
+		:JobCategory,
+		:MaritalStatus,
+		:NbrSpeedingCitations,
+		:NbrSportsCars,
+		:Region,
+		:Weight
+	),
+	Validation Portion( 0.4 ),
+	Set Random Seed( 5 ),
+	Method( "Bootstrap Forest" ),
+	ROC Curve( 1 ),
+	Portion Bootstrap( 1 ),
+	Number Terms( 6 ),
+	Number Trees( 8 ),
+	Go
+);
+
+Bootstrap Forest(
+	Y( :Buyer ),
+	X(
+		:Age,
+		:CommuteDistance,
+		:CreditRating,
+		:EducationYrs,
+		:Gender,
+		:Height,
+		:HomeLocation,
+		:Income,
+		:JobCategory,
+		:MaritalStatus,
+		:NbrSpeedingCitations,
+		:NbrSportsCars,
+		:Region,
+		:Weight
+	),
+	Minimum Size Split( 1 ),
+	Validation Portion( 0.4 ),
+	Set Random Seed( 5 ),
+	Method( "Bootstrap Forest" ),
+	ROC Curve( 1 ),
+	Portion Bootstrap( 1 ),
+	Number Terms( 5 ),
+	Number Trees( 15 ),
+	Go
+);
+
+Bootstrap Forest(
+	Y( :Buyer ),
+	X(
+		:Age,
+		:CommuteDistance,
+		:CreditRating,
+		:EducationYrs,
+		:Gender,
+		:Height,
+		:HomeLocation,
+		:Income,
+		:JobCategory,
+		:MaritalStatus,
+		:NbrSpeedingCitations,
+		:NbrSportsCars,
+		:Region,
+		:Weight
+	),
+	Minimum Size Split( 4 ),
+	Validation Portion( 0.4 ),
+	Set Random Seed( 5 ),
+	Method( "Bootstrap Forest" ),
+	Portion Bootstrap( 1 ),
+	Number Terms( 6 ),
+	Number Trees( 46 ),
+	Go
+);

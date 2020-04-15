@@ -1,0 +1,105 @@
+
+Partition(
+	Y( :yCarBuyer ),
+	X(
+		:Age,
+		:CommuteDist,
+		:CredRating,
+		:EducYrs,
+		:Gender,
+		:Height,
+		:HomeLoc,
+		:Income,
+		:JobCateg,
+		:MaritalStat,
+		:NbrSpeedCit,
+		:NbrSportsCars,
+		:Region,
+		:Weight
+	),
+	Validation( :Valid532Sd1 ),
+	Show Tree( 0 ),
+	Show Split Prob( 1 ),
+	Show Split Count( 1 ),
+	Small Tree View( 1 ),
+	Split History( 1 ),
+	Show Fit Details( 1 ),
+	Informative Missing( 1 ),
+	ROC Curve( 1 ),
+	Initial Splits(
+		:NbrSpeedCit >= 4,
+		{:Income >= 70767, {:HomeLoc == {"S"}, {:Gender == {"Male"}, {:Region ==
+		{"Pacific", "East", "South"}, {:NbrSportsCars >= 1}, {:Weight < 173}}},
+		{:Gender == {"Male"}, {:Income >= 153806, {}, {:Region == {"South",
+		"Pacific"}}}}}, {:HomeLoc == {"S"}, {:Gender == {"Male"}, {:JobCateg ==
+		{"Managerial", "Professional", "Skilled Manual", "Sales"}}}}},
+		{:Gender == {"Male"}, {:JobCateg == {"Managerial", "Sales", "Professional"},
+		{:HomeLoc == {"S"}, {:Weight < 209, {:Region == {"Pacific", "South", "East"},
+		{}, {:NbrSportsCars >= 1}}}}}, {:NbrSportsCars >= 1}}
+	),
+	SendToReport(
+		Dispatch( {}, "Partition Report", FrameBox, {Frame Size( 480, 182 )} ),
+		Dispatch( {}, "", Picture Box( 2 ), {Set Summary Behavior( "Collapse" )} )
+	)
+);
+
+
+Fit Model(
+	Validation( :Valid532Sd1 ),
+	Y( :yCarBuyer ),
+	Effects(
+		:Age,
+		:CommuteDist,
+		:CredRating,
+		:EducYrs,
+		:Gender,
+		:Height,
+		:HomeLoc,
+		:Income,
+		:JobCateg,
+		:MaritalStat,
+		:NbrSpeedCit,
+		:NbrSportsCars,
+		:Region,
+		:Weight
+	),
+	Choose High Target( 1 ),
+	Personality( "Nominal Logistic" ),
+	Run( Likelihood Ratio Tests( 1 ), Wald Tests( 0 ) )
+);
+
+Fit Model(
+	Validation( :Valid532Sd1 ),
+	Y( :yCarBuyer ),
+	Effects(
+		:Gender,
+		:Height,
+		:HomeLoc,
+		:Income,
+		:JobCateg,
+		:MaritalStat,
+		:NbrSpeedCit,
+		:NbrSportsCars,
+		:Region,
+		:Weight
+	),
+	Choose High Target( 1 ),
+	Personality( "Nominal Logistic" ),
+	Run(
+		Likelihood Ratio Tests( 1 ),
+		Wald Tests( 0 ),
+		ROC Curve( 1 ),
+		Confusion Matrix( 1 )
+	)
+);
+
+Boosted Tree(
+	Y( :Price ),
+	X( :Carat Weight, :Color, :Clarity, :Cut ),
+	Validation( :Valid532Sd6 ),
+	Method( "Boosted Tree" ),
+	Splits per Tree( 3 ),
+	Number of Layers( 100 ),
+	Learning Rate( 0.1 ),
+	Go
+);

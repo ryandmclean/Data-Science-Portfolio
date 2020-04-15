@@ -1,0 +1,58 @@
+
+K Means Cluster(
+	Y(
+		:sAcceptLivingStd,
+		:sBargainHunter,
+		:sBrandLoyal,
+		:sConforms,
+		:sDressesWell,
+		:sExperiments,
+		:sManagesMoneyWell,
+		:sRegularExercise,
+		:sRoutineLifestyle,
+		:sStyleAbreast
+	),
+	{SOM N Rows( 2 ), SOM Bandwidth( 0.433012701892219 ), Number of Clusters( 4 ),
+	SOM, Go( Parallel Coord Plots )},
+	SendToReport(
+		Dispatch( {}, "Control Panel", OutlineBox, {Close( 1 )} ),
+		Dispatch(
+			{"SOM Grid 2 by 2", "Parallel Coordinate Plot"},
+			"Parallel Coord",
+			FrameBox( 5 ),
+			{Frame Size( 920, 144 )}
+		)
+	)
+);
+
+Fit Model(
+	Validation( :Valid60Sd42 ),
+	Y( :yPurchases ),
+	Effects(
+		:Age,
+		:College,
+		:Gender,
+		:Income,
+		:sAcceptLivingStd,
+		:sBargainHunter,
+		:sBrandLoyal,
+		:sConforms,
+		:sDressesWell,
+		:sExperiments,
+		:sManagesMoneyWell,
+		:sRegularExercise,
+		:sRoutineLifestyle,
+		:sStyleAbreast
+	),
+	Personality( "Standard Least Squares" ),
+	Emphasis( "Minimal Report" ),
+	Run(
+		:yPurchases << {Summary of Fit( 1 ), Analysis of Variance( 1 ),
+		Parameter Estimates( 1 ), Lack of Fit( 0 ), Scaled Estimates( 0 ),
+		Plot Actual by Predicted( 0 ), Plot Regression( 0 ),
+		Plot Residual by Predicted( 0 ), Plot Studentized Residuals( 0 ),
+		Plot Effect Leverage( 0 ), Plot Residual by Normal Quantiles( 0 ),
+		Box Cox Y Transformation( 0 )}
+	),
+	Where( :Cluster == 1 )
+);

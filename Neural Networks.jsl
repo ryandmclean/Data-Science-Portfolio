@@ -1,0 +1,180 @@
+
+Neural(
+	Y( :yPersonalLoan ),
+	X(
+		:Age,
+		:Education,
+		:Experience,
+		:Family,
+		:Income,
+		:CCAvg,
+		:CDAccount,
+		:CreditCard,
+		:Mortgage,
+		:Online,
+		:SecuritiesAccount
+	),
+	Validation( :Name( "3Val532Sd1" ) ),
+	Informative Missing( 0 ),
+	Transform Covariates( 1 ),
+	Fit( NTanH( 3 ), NLinear( 1 ), Transform Covariates( 1 ), ROC Curve( 1 ) ),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 20 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 20 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 50 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 50 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		NTanH2( 1 ),
+		NLinear2( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 20 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		NTanH2( 1 ),
+		NLinear2( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 20 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		NTanH2( 1 ),
+		NLinear2( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 50 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		NTanH2( 1 ),
+		NLinear2( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 50 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 2 ),
+		NLinear( 1 ),
+		NTanH2( 2 ),
+		NLinear2( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 20 ),
+		ROC Curve( 1 )
+	),
+	SendToReport(
+		Dispatch( {}, "Model NTanH(3)NLinear(1)", OutlineBox, {Close( 1 )} ),
+		Dispatch( {}, "Model NTanH(3)NLinear(1)", Outline Box( 2 ), {Close( 1 )} ),
+		Dispatch( {}, "Model NTanH(3)NLinear(1)", Outline Box( 3 ), {Close( 1 )} ),
+		Dispatch( {}, "Model NTanH(3)NLinear(1)", Outline Box( 4 ), {Close( 1 )} ),
+		Dispatch( {}, "Model NTanH(3)NLinear(1)", Outline Box( 5 ), {Close( 1 )} ),
+		Dispatch(
+			{},
+			"Model NTanH(3)NLinear(1)NTanH2(1)NLinear2(1)",
+			OutlineBox,
+			{Close( 1 )}
+		),
+		Dispatch(
+			{},
+			"Model NTanH(3)NLinear(1)NTanH2(1)NLinear2(1)",
+			Outline Box( 2 ),
+			{Close( 1 )}
+		),
+		Dispatch(
+			{},
+			"Model NTanH(3)NLinear(1)NTanH2(1)NLinear2(1)",
+			Outline Box( 3 ),
+			{Close( 1 )}
+		),
+		Dispatch(
+			{},
+			"Model NTanH(3)NLinear(1)NTanH2(1)NLinear2(1)",
+			Outline Box( 4 ),
+			{Close( 1 )}
+		),
+		Dispatch(
+			{},
+			"Model NTanH(2)NLinear(1)NTanH2(2)NLinear2(1)",
+			OutlineBox,
+			{Close( 1 )}
+		)
+	)
+);
+
+Neural(
+	Y( :yDiabetes ),
+	X(
+		:Age,
+		:Glucose,
+		:BMI,
+		:Diastolic,
+		:FamHist,
+		:Insulin,
+		:Pregnancies,
+		:Skinfold
+	),
+	Validation( :Valid60 ),
+	Informative Missing( 0 ),
+	Transform Covariates( 1 ),
+	Fit( NTanH( 3 ), NLinear( 1 ), Number of Tours( 1 ), Transform Covariates( 1 ), ROC Curve( 1 ) ),
+	Fit( NTanH( 3 ), NLinear( 1 ), Number of Tours( 20 ), Transform Covariates( 1 ), ROC Curve( 1 ) ),
+	Fit( NTanH( 3 ), NLinear( 2 ), Number of Tours( 1 ), Transform Covariates( 1 ), ROC Curve( 1 ) ),
+	Fit( NTanH( 3 ), NLinear( 2 ), Number of Tours( 20 ), Transform Covariates( 1 ), ROC Curve( 1 ) ),
+	Fit( NTanH( 4 ), NLinear( 3 ), Number of Tours( 50 ), Transform Covariates( 1 ), ROC Curve( 1 ) ),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 1 ),
+		NTanH2( 1 ),
+		NLinear2( 1 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 20 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 3 ),
+		NLinear( 2 ),
+		NTanH2( 3 ),
+		NLinear2( 2 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 20 ),
+		ROC Curve( 1 )
+	),
+	Fit(
+		NTanH( 4 ),
+		NLinear( 3 ),
+		NTanH2( 4 ),
+		NLinear2( 3 ),
+		Transform Covariates( 1 ),
+		Number of Tours( 50 ),
+		ROC Curve( 1 )
+	)
+);
