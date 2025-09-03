@@ -2,6 +2,10 @@ import pandas as pd
 import random
 import os
 from datetime import date
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from functools import lru_cache
 
 # ---------- Files ----------
 FLASHCARD_FILE = "d_and_c_chapters.csv"
@@ -213,6 +217,51 @@ def update_score(user_scores: pd.DataFrame, chapter: str, correct: bool) -> pd.D
         user_scores.at[idx, "Incorrect"] += 1
 
     return user_scores
+
+
+##############################
+# Implement Logic to allow for sentence parsing and matching
+##############################
+
+def _normalize_text(s: str) -> str:
+    """
+    Light normalization: lowercase, collapse whitespace, strip punctuation.
+    """
+    s = s.lower().strip()
+    s = re.sub(r"\s+", " ", s)
+    s = re.sub(r"[^\w\s]", "", s)
+    return s
+
+def similarity_tfidf(reference_summary: str, user_summary: str) -> float:
+    """
+    Compute TF-IDF cosine similarity between reference and user text.
+    Returns float in [0,1].
+    """
+    ref = _normalize_text(reference_summary)
+    usr = _normalize_text(user_summary)
+
+    vectorizer = TfidfVectorizer(
+        ngram_range=(1, 2),     # unigrams + bigrams help short texts
+        stop_words="english"    # reduce noise
+    )
+    X = vectorizer.fit_transform([ref, usr])
+    sim = cosine_similarity(X[0:1], X[1:2])[0, 0]
+    return float(sim)
+
+def evaluate_freeform_local(reference_summary: str,
+                            user_summary: str,
+                            tfidf_threshold: float = 0.45) -> dict:
+    """
+    Grade a free-form user summary locally via TF-IDF cosine.
+    Returns:
+      { "correct": bool, "method": "tfidf", "score": float }
+    """
+    score = similarity_tfidf(reference_summary, user_summary)
+    return {
+        "correct": bool(score >= tfidf_threshold),
+        "method": "tfidf",
+        "score": round(score, 3),
+    }
 
 # if __name__ == "__main__":
 #     username = get_username()

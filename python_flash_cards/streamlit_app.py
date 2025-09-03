@@ -52,6 +52,14 @@ if st.session_state.username is None:
 # ---------- Mode Selection ----------
 elif st.session_state.mode is None:
     st.subheader(f"Welcome, **{st.session_state.username}** 👋")
+
+    # Let the user choose how they want to answer (applies to the next session they start)
+    st.session_state["answer_freeform"] = st.toggle(
+        "Answer with a short summary (local NLP grading)",
+        value=st.session_state.get("answer_freeform", False),
+        help="If on, you'll see a chapter number and must type a brief summary. We'll grade it with TF-IDF cosine locally."
+    )
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -155,28 +163,53 @@ else:
         card = deck[i]
 
         st.subheader(f"Mode: {st.session_state.mode.title()}")
-        st.write(f"**Summary:** {card['Summary']}")
+
+        # Show either the Summary (numeric-answer mode) or the Chapter (free-form summary mode)
+        if st.session_state.get("answer_freeform"):
+            st.write(f"Chapter:** {card['Chapter']}")
+            prompt_label = "Type a short summary in your own words:"
+        else:
+            st.write(f"**Summary:** {card['Summary']}")
+            prompt_label = "Enter chapter:"
 
         col_ok, col_skip = st.columns([3, 1])
 
         # --- Submit (inside a form so Enter works) ---
         with col_ok:
             with st.form(key=f"form_{i}"):
-                answer = st.text_input("Enter chapter:", key=f"answer_{i}")
+                answer = st.text_input(prompt_label, key=f"answer_{i}")
                 submitted = st.form_submit_button("Submit")
 
                 if submitted:
-                    is_correct = fc.evaluate_answer(card["Chapter"], answer)
+                    # Decide how to grade based on the toggle
+                    if st.session_state.get("answer_freeform"):
+                        # Free-form: grade locally via TF-IDF
+                        verdict = fc.evaluate_freeform_local(
+                            reference_summary=card["Summary"],
+                            user_summary=answer,
+                            tfidf_threshold=0.48 # Tune as needed
+                        )
+                        is_correct = verdict["correct"]
+                        st.session_state.feedback = (
+                            f"{'✅ Correct' if is_correct else '❌ Incorrect'} "
+                            f"• method={verdict['method']} • score={verdict['score']}"
+                        )
+                    else:
+                        # Numeric Check
+                        is_correct = fc.evaluate_answer(card["Chapter"], answer)
+                        st.session_state.feedback = (
+                            "✅ Correct!" if is_correct else f"❌ Incorrect. Correct: {card['Chapter']}"
+                        )
+
+                    # Update stats
                     st.session_state.user_scores = fc.update_score(
                         st.session_state.user_scores, card["Chapter"], is_correct
                     )
 
                     if is_correct:
                         st.session_state.session_correct += 1
-                        st.session_state.feedback = "✅ Correct!"
                     else:
                         st.session_state.session_incorrect += 1
-                        st.session_state.feedback = f"❌ Incorrect. Correct: {card['Chapter']}"
                         st.session_state.missed.append(card)
 
                     # Advance
