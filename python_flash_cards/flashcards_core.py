@@ -169,7 +169,12 @@ def build_deck_targeted(flashcards: pd.DataFrame, start_chapter: int) -> list[di
     """
     cards = flashcards.copy()
     cards["Chapter_num"] = cards["Chapter"].astype(int)
-    block = cards[(cards["Chapter_num"] >= start_chapter) & (cards["Chapter_num"] < start_chapter + 10)]
+    max_chapter = cards["Chapter_num"].max()
+    end_chapter = min(start_chapter + 9, max_chapter)
+    block = cards[
+        (cards["Chapter_num"] >= start_chapter) & 
+        (cards["Chapter_num"] < end_chapter)
+    ]
     deck = block.sort_values("Chapter_num").to_dict("records")
     shuffle_records(deck)
     return deck
