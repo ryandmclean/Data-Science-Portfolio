@@ -169,7 +169,24 @@ else:
             st.write(f"Chapter:** {card['Chapter']}")
             prompt_label = "Type a short summary in your own words:"
         else:
-            st.write(f"**Summary:** {card['Summary']}")
+    # List of fields to display if they have data
+            fields = [
+                "Summary",
+                "Date",
+                "Recipient",
+                "Verse",
+                "Context",
+                "Content",
+                "Controversy",
+                "Consequences",
+                "Theme",
+                "Location",
+            ]
+
+            for field in fields:
+                value = card.get(field)
+                if pd.notna(value) and value not in (None, "", "null","nan"):
+                    st.write(f"**{field}:** {value}")
             prompt_label = "Enter chapter:"
 
         col_ok, col_skip = st.columns([3, 1])
