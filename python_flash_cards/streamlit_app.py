@@ -10,6 +10,7 @@ def init_state():
         "username": None,
         "mode": None,               # "learn" | "review" | "targeted"
         "threshold_raw": "80",
+        "num_chapters": 20,
         "start_chapter": 1,
         "flashcards_df": None,
         "user_scores": None,
@@ -64,9 +65,14 @@ elif st.session_state.mode is None:
 
     with col1:
         st.write("### Learn")
+        st.session_state.num_chapters = st.number_input(
+            "Number of sections to learn",
+            value=st.session_state.num_chapters,
+            key="number_input",
+        )
         if st.button("Start Learn"):
             st.session_state.mode = "learn"
-            st.session_state.deck = fc.build_deck_learn(st.session_state.flashcards_df)
+            st.session_state.deck = fc.build_deck_learn(st.session_state.flashcards_df, st.session_state.num_chapters)
             st.session_state.idx = 0
             st.session_state.missed = []
             st.session_state.session_correct = 0
@@ -181,6 +187,7 @@ else:
                 "Consequences",
                 "Theme",
                 "Location",
+                "Approximate"
             ]
 
             for field in fields:
