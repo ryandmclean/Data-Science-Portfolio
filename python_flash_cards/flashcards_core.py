@@ -142,12 +142,13 @@ def get_accuracy_threshold(raw_input: str) -> float:
         return 0.8
 
 # ---------- Deck Builders (no UI) ----------
-def build_deck_learn(flashcards: pd.DataFrame) -> list[dict]:
+def build_deck_learn(flashcards: pd.DataFrame, num_chapters: int) -> list[dict]:
     """
     Learn mode: all chapters, shuffled.
     """
     deck = flashcards.to_dict("records")
     shuffle_records(deck)
+    deck = deck[:num_chapters]
     return deck
 
 
