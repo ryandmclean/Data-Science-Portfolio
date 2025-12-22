@@ -6,11 +6,13 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from functools import lru_cache
+from pathlib import Path
 
 # ---------- Files ----------
-FLASHCARD_FILE = "d_and_c_chapters.csv"
-SCORE_FILE = "chapter_stats.csv"
-DAILY_STATS_FILE = "daily_stats.csv"
+BASE_DIR = Path(__file__).resolve().parent
+FLASHCARD_FILE = BASE_DIR / "d_and_c_chapters.csv"
+SCORE_FILE = BASE_DIR / "chapter_stats.csv"
+DAILY_STATS_FILE = BASE_DIR / "daily_stats.csv"
 
 # Used by update_score to know which user to attach when it needs to insert a missing chapter row.
 username_global = None
