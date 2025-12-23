@@ -1,0 +1,5 @@
+--index-url https://pypi.org/simple
+pandas>=2.2.3
+numpy>=1.26
+dbt-core
+dbt-duckdb

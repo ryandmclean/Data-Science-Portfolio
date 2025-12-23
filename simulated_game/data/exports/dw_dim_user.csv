@@ -1,0 +1,6 @@
+user_id,location,age,gender,sample_id,created_at
+08a5fa48-2936-465e-affa-5558331c8a8d,CA,12,male,dev_1,2026-01-01 00:00:00
+abe0a742-9916-40d4-b488-e6f7539063a4,MT,18,female,dev_1,2026-01-01 00:00:00
+e4b46cf7-40c8-4528-9e08-8486b1d38ceb,FL,18,female,dev_1,2026-01-01 00:00:00
+f6779161-bd97-4375-abc5-ec30b05de76f,NE,13,male,dev_1,2026-01-01 00:00:00
+f6d8fbfc-3da0-464e-8a79-747e35ff8e6a,WY,18,female,dev_1,2026-01-01 00:00:00
